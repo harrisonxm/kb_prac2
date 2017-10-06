@@ -8,7 +8,7 @@ class App extends Component {
     this.state = {
       status: ['New', 'In Process', 'Review', 'Completed'],
       input: '',
-      task: []
+      tasks: JSON.parse(localStorage.getItem('tasks')) || []
     }
     this.addNote = this.addNote.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
@@ -19,9 +19,13 @@ class App extends Component {
     let task = [[e.target.name, this.state.input]]
     //before adding into specific key in local storage, grab previously stored 'tasks'
     let storedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    console.log(storedTasks)
-    //first parameter is key name in local storage
-    localStorage.setItem('tasks', JSON )
+    //first parameter is key name in local storage, destructure arrays and combine then stringify
+    localStorage.setItem('tasks', JSON.stringify([...storedTasks, ...task]) );
+    this.setState({tasks: localStorage.tasks})
+    //grab specific input field
+    let target = e.target.getElementsByClassName('input');
+    //after submit note clear input line
+    target[0].value = '';
   }
   handleUpdate(e){
     this.setState({input : e.target.value})
@@ -30,9 +34,9 @@ class App extends Component {
     let columns = this.state.status.map((s, index) => {
       return(
         <div className="column" key={index}>
-          <Column status={s} />
+          <Column status={s} tasks={this.state.tasks} />
           <form className="addnote" name={s} onSubmit={this.addNote}>
-            <input type="text" placeholder="add a note" onChange={this.handleUpdate} required></input>
+            <input type="text" className="input" placeholder="add a note" onChange={this.handleUpdate} required></input>
             <input type="submit" value="Add"></input>
           </form>
         </div>
