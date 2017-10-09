@@ -9,6 +9,7 @@ class Column extends Component {
     this.moveLeft = this.moveLeft.bind(this);
     this.moveRight = this.moveRight.bind(this);
     this.renderTasks = this.renderTasks.bind(this);
+    this.remove = this.remove.bind(this);
   }
   componentWillReceiveProps(newProps){
     if(localStorage.tasks){
@@ -30,6 +31,7 @@ class Column extends Component {
             <li key={index}>
             {t}
             <button className="btn btn-xs btn-success" data-index={index} data-task={task[0]} onClick={this.moveRight}>Right</button>
+            <p><button className="del btn btn-xs btn-info" data-index={index} data-task={task[0]} onClick={this.remove}>Del</button></p>
             </li>
           )
         }
@@ -40,6 +42,7 @@ class Column extends Component {
               {t}
               <button className="btn btn-xs btn-success" data-index={index} data-task={task[0]} onClick={this.moveRight}>Right</button>
               <button className="btn btn-xs btn-danger" data-index={index} data-task={task[0]} onClick={this.moveLeft}>Left</button>
+              <p><button className="del btn btn-xs btn-info" data-index={index} data-task={task[0]} onClick={this.remove}>Del</button></p>
             </li>
           )
         }
@@ -49,6 +52,7 @@ class Column extends Component {
               {t}
               <button className="btn btn-xs btn-success" data-index={index} data-task={task[0]} onClick={this.moveRight}>Right</button>
               <button className="btn btn-xs btn-danger" data-index={index} data-task={task[0]} onClick={this.moveLeft}>Left</button>
+              <p><button className="del btn btn-xs btn-info" data-index={index} data-task={task[0]} onClick={this.remove}>Del</button></p>
             </li>
           )
         }
@@ -57,6 +61,7 @@ class Column extends Component {
             <li key={index}>
               {t}
               <button className="btn btn-xs btn-danger" data-index={index} data-task={task[0]} onClick={this.moveLeft}>Left</button>
+              <p><button className="del btn btn-xs btn-info" data-index={index} data-task={task[0]} onClick={this.remove}>Del</button></p>
             </li>
           )
         }
@@ -119,6 +124,14 @@ class Column extends Component {
       default:
         break;
       }
+  }
+  remove(e){
+    let i = e.target.dataset.index;
+    let arr = [...this.state.tasks];
+    arr.splice(i, 1);
+    localStorage.tasks = JSON.stringify(arr);
+    this.setState({tasks: arr});
+    this.props.updateTasks(arr);
   }
   render(){
     return(

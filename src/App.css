@@ -10,12 +10,20 @@
 button {
   width: 40px;
   height: 20px;
+  color: blue;
 }
 button:hover {
   width: 50px;
+  transform: rotate(360deg);
   transition: 3s;
-}
 
+}
+p {
+  padding-top: 5px;
+}
+.del {
+  width: 70px;
+}
 .column h1 {
   text-align: center;
 }
