@@ -15,14 +15,14 @@ class Column extends Component {
       let updatedTasks = JSON.parse(localStorage.getItem('tasks'));
       //check if localStorage has updated if so then setState to rerender
       if(updatedTasks !== this.state.tasks){
-        this.setState({tasks: updatedTasks})
+        this.setState({tasks: updatedTasks});
       }
     }
   }
   renderTasks(){
     //return list of specific lists
     return this.state.tasks.map((task, index) => {
-      //render tasks on correct columns, if status doesnt match props status then don't render 
+      //render tasks on correct columns, if status doesnt match props status then don't render
       let t = task[0] === this.props.status ? task[1] : null;
       if(t){
         if(task[0] === 'New'){
@@ -34,6 +34,7 @@ class Column extends Component {
           )
         }
         if(task[0] === 'In Process'){
+          //use data attribute to store index and task status to update
           return(
             <li key={index}>
               {t}
