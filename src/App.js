@@ -43,7 +43,7 @@ class App extends Component {
           <Column status={s} tasks={this.state.tasks} updateTasks={this.updateTasks} />
           <form className="addnote" name={s} onSubmit={this.addNote}>
             <input type="text" className="input" placeholder="add a note" onChange={this.handleUpdate} required></input>
-            <input type="submit" value="Add"></input>
+            <input className="btn btn-success" type="submit" value="Add"></input>
           </form>
         </div>
       )

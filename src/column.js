@@ -12,6 +12,7 @@ class Column extends Component {
     this.remove = this.remove.bind(this);
   }
   componentWillReceiveProps(newProps){
+    //when new props sent compare component state to localstorage
     if(localStorage.tasks){
       let updatedTasks = JSON.parse(localStorage.getItem('tasks'));
       //check if localStorage has updated if so then setState to rerender
